@@ -79,7 +79,7 @@
 			);
 
 			if (response.ok) {
-				const data = await response.json();
+				const data = await response;
 				console.log('Resposta do backend:', data);
 			} else {
 				console.error('Erro ao enviar dados para o backend:', response.statusText);
