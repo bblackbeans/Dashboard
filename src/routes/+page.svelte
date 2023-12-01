@@ -13,7 +13,7 @@
 	</div>
 	
 	<div class="row">
-		<button class="mt-2 rounded-3 bg-dark"> <a href="/terminal">Ir para o terminal</a></button>
+		<button class="mt-2 rounded-3 bg-dark"> <a href="/cadastro-clientes">Ir para painel</a></button>
 	</div>
 
 
