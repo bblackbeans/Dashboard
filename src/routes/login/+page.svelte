@@ -1,20 +1,47 @@
 <script>
-	import { signIn, signOut } from '@auth/sveltekit/client';
-	import { page } from '$app/stores';
-	import logo from '$lib/assets/logo.png';
-	import Google from '$lib/components/icon/Google.svelte';
+  import { auth, googleProvider } from '$lib/components/firebase';
+  import { signInWithPopup } from 'firebase/auth';
 
-	const handleGoogleSignIn = () => {
-		signIn('google', { callbackUrl: '/terminal' });
-	};
+  import { goto } from '$app/navigation'; // Importe a função goto
 
-	const handleSignOut = () => {
-		signOut();
-	};
+  const handleGoogleLogin = async () => {
+    try {
+      const result = await signInWithPopup(auth, googleProvider);
+      const user = result.user;
+      console.log('Usuário logado:', user);
+      goto('/terminal');
+    } catch (error) {
+      if (error instanceof Error) {
+        console.error('Erro no login:', error.message);
+      } else {
+        console.error('Erro desconhecido no login:', error);
+      }
+    }
+  };
+
+	
+	// import { signIn, signOut } from '@auth/sveltekit/client';
+	// import { page } from '$app/stores';
+	// import logo from '$lib/assets/logo.png';
+	// import Google from '$lib/components/icon/Google.svelte';
+
+	// const handleGoogleSignIn = () => {
+	// 	signIn('google', { callbackUrl: '/terminal' });
+	// };
+
+	// const handleSignOut = () => {
+	// 	signOut();
+	// };
 </script>
 
+
+
 <div class="container py-5 d-flex flex-column justify-content-between">
-	{#if !$page.data.session}
+
+	<h1>Login</h1>
+	<button on:click={handleGoogleLogin}>Login com Google</button>
+
+	<!-- {#if !$page.data.session}
 		<img src={logo} width="150" alt="auth.js logo" class="logo mb-3" />
 		<div>
 			<h1 class="welcome">Dashboard Black Beans</h1>
@@ -32,8 +59,10 @@
 
 			<button on:click={handleSignOut}>Sign out</button>
 		</div>
-	{/if}
+	{/if} -->
 </div>
+
+
 
 <style>
 	.container {
