@@ -69,7 +69,10 @@
 							<div class="subMenu">
 								<h4 class="subTitle">{titleSubMenu1}</h4>
 								<ul>
-									<li><a class="menuLinks small" href="/cadastro-clientes">Cadastro de Clientes</a></li>
+									<li>
+										<a class="menuLinks" href="/dashboard/cadastro-clientes">Cadastro de Clientes</a
+										>
+									</li>
 									<!-- <li><a class="menuLinks" href="#">Status de Clientes</a></li> -->
 								</ul>
 							</div>
@@ -79,7 +82,11 @@
 							<div class="subMenu">
 								<h4 class="subTitle">{titleSubMenu2}</h4>
 								<ul>
-									<li><a class="menuLinks small" href="/cadastro-contratos">Cadastro de Contratos</a></li>
+									<li>
+										<a class="menuLinks" href="/dashboard/cadastro-contratos"
+											>Cadastro de Contratos</a
+										>
+									</li>
 									<!-- <li><a class="menuLinks" href="/">Contratos 2</a></li> -->
 								</ul>
 							</div>
