@@ -21,6 +21,11 @@
 </script>
 
 <svelte:head>
+
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
 	<!-- BOOTSTRAP CSS -->
 	<link
 		href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
@@ -77,8 +82,8 @@
 				  <div class="subMenu">
 					<h4 class="subTitle">{titleSubMenu2}</h4>
 					<ul>
-					  <li>Contratos 1</li>
-					  <li>Contratos 2</li>
+					  <li><a class="menuLinks" href="/cadastro-contratos">Cadastro de Contratos</a></li>
+					  <li><a class="menuLinks" href="/">Contratos 2</a></li>
 					</ul>
 				  </div>
 				{/if}
@@ -94,10 +99,13 @@
 
 <style type="scss">
 
+	
+
 	#mainMenu {
 		box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.2);
 		z-index: 9990;
 		padding-right: unset;
+		min-height: 95vh;
 	}
 
 	#slot {
