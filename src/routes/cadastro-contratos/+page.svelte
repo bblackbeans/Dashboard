@@ -1,68 +1,3 @@
-<!-- src/routes/FormPage.svelte
-<script>
-    import Question from '$lib/components/Question.svelte';
-  
-    let currentPage = 0;
-    let answers = [];
-  
-    const questions = [
-      { question: 'Novo cliente?', options: ['Sim', 'Não'] },
-      { question: 'Detalhes do Novo Cliente', showAdditionalFields: false },
-      { question: 'Detalhes do Cliente Existente', showAdditionalFields: false },
-      // Adicione mais perguntas conforme necessário
-    ];
-  
-    let currentQuestion = questions[currentPage];
-  
-    // Adiciona a lógica para exibir ou ocultar campos adicionais com base na resposta
-    // Adiciona a lógica para exibir ou ocultar campos adicionais com base na resposta
-  /**
-	 * @param {{ detail: string; }} event
-	 */
-  function handleAnswer(event) {
-    answers[currentPage] = event.detail;
-
-    if (currentPage === 0) {
-      if (event.detail === 'Sim') {
-        currentPage = 1; // Pula para a próxima pergunta se a resposta for 'Sim'
-      } else {
-        currentPage = 2; // Pula para a pergunta seguinte se a resposta for 'Não'
-      }
-    } else {
-      // Adicione lógica aqui para determinar se deve mostrar campos adicionais com base nas respostas anteriores
-      currentPage += 1;
-    }
-
-    currentQuestion = questions[currentPage];
-  }
-  
-    function nextPage() {
-      currentPage += 1;
-      currentQuestion = questions[currentPage];
-    }
-  
-    function prevPage() {
-      currentPage -= 1;
-      currentQuestion = questions[currentPage];
-    }
-  </script>
-  
-  <h1>Formulário</h1>
-  
-  {#if currentPage < questions.length}
-    <Question
-        question={currentQuestion.question}
-        options={currentQuestion.options}
-      on:answer={handleAnswer}
-    />
-    <button on:click={nextPage}>Próximo</button>
-  {/if}
-  
-  {#if currentPage > 0}
-    <button on:click={prevPage}>Anterior</button>
-  {/if}
-   -->
-
 <script>
 	let modelo = {
 		cliente_novo: true,
@@ -91,30 +26,6 @@
 		}
 	};
 
-	// let modeloRecorrente = {
-	// 	cliente_novo: true,
-	// 	cnpj_cliente: '',
-	// 	razao_social: '',
-	// 	nome_fantasia: '',
-	// 	nome_contato: '',
-	// 	email_contato: '',
-	// 	servicos_prestados: [''],
-	// 	emissao_de_nota: '',
-	// 	retencao_iss_emissao_nota_fiscal: '',
-	// 	forma_recebimento: '',
-	// 	tipo: '',
-	// 	recorrente: {
-	// 		inicio_vigencia: '',
-	// 		termino_vigencia: '',
-	// 		periodicidade: '',
-	// 		valor_do_periodo: '',
-	// 		observacoes_adicionais: ''
-	// 	},
-	// 	avulso: null
-	// };
-
-	
-
 	/**
 	 * @type {string | null}
 	 */
@@ -126,18 +37,83 @@
 	 */
 	let tipo = null;
 
+	/**
+	 * Verifica se pelo menos um serviço está marcado.
+	 * @returns {boolean} Retorna true se pelo menos um serviço estiver marcado, senão retorna false.
+	 */
+	const checkServicos = () => {
+		const peloMenosUmCheckboxMarcado = [
+			isSiteChecked,
+			isHotsiteChecked,
+			isManutencaoChecked,
+			isApresentacaoDigitalChecked,
+			isArtesChecked,
+			isDevMarcaChecked,
+			isGerenciamentoMidiaChecked,
+			isMarketingDigitalChecked,
+			isPerformanceChecked,
+			isPlanejamentoChecked,
+			isSocialMediaChecked
+		].some((checked) => checked);
+
+		if (!peloMenosUmCheckboxMarcado) {
+			alert('Selecione pelo menos um serviço.');
+			return false;
+		}
+		return true;
+	};
+
 	const handleSubmit = () => {
 		mostrarPergunta = false;
 
 		if (cliente_novo === 'sim') {
-			// Lógica para lidar com o envio do formulário para Novo Cliente
 			console.log('Enviar formulário para Novo Cliente');
 		} else if (cliente_novo === 'nao') {
-			// Lógica para lidar com o envio do formulário para Não Novo Cliente
 			console.log('Enviar formulário para Não Novo Cliente');
 		}
 
-		etapaFormulario += 1; // Avançar para a próxima parte do formulário
+		etapaFormulario += 1;
+
+		modelo.servicos_prestados = [];
+		if (isSiteChecked) {
+			modelo.servicos_prestados.push('Desenvolvimento de site');
+		}
+		if (isHotsiteChecked) {
+			modelo.servicos_prestados.push('Hotsite');
+		}
+		if (isManutencaoChecked) {
+			modelo.servicos_prestados.push('Manutenção de site');
+		}
+		if (isArtesChecked) {
+			modelo.servicos_prestados.push('Artes avulsas');
+		}
+		if (isDevMarcaChecked) {
+			modelo.servicos_prestados.push('Desenvolvimento de marca');
+		}
+		if (isApresentacaoDigitalChecked) {
+			modelo.servicos_prestados.push('Apresentação digital');
+		}
+		if (isMarketingDigitalChecked) {
+			modelo.servicos_prestados.push('Marketing digital');
+		}
+		if (isGerenciamentoMidiaChecked) {
+			modelo.servicos_prestados.push('Gerenciamento de midia');
+		}
+		if (isPerformanceChecked) {
+			modelo.servicos_prestados.push('Performance');
+		}
+		if (isPlanejamentoChecked) {
+			modelo.servicos_prestados.push('Planejamento');
+		}
+		if (isSocialMediaChecked) {
+			modelo.servicos_prestados.push('Social media');
+		}
+	};
+
+	const handleSubmitAndCheckServicos = () => {
+		if (checkServicos()) {
+			handleSubmit();
+		}
 	};
 
 	const retornarPergunta = () => {
@@ -145,221 +121,225 @@
 		etapaFormulario = 1;
 	};
 
+	let isSiteChecked = false;
+	let isHotsiteChecked = false;
+	let isManutencaoChecked = false;
+	let isApresentacaoDigitalChecked = false;
+	let isArtesChecked = false;
+	let isDevMarcaChecked = false;
+	let isGerenciamentoMidiaChecked = false;
+	let isMarketingDigitalChecked = false;
+	let isPerformanceChecked = false;
+	let isPlanejamentoChecked = false;
+	let isSocialMediaChecked = false;
 
+	const enviarFormulario = async () => {
+		try {
+			const response = await fetch(
+				'https://client-management-service-edejqdvmyq-uc.a.run.app/contracts/registration',
+				{
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify(modelo)
+				}
+			);
+
+			if (!response.ok) {
+				throw new Error('Erro ao enviar formulário');
+			}
+
+			sucessoCadastro = 'Cadastro efetuado com sucesso!';
+			erroCadastro = null;
+			console.log('Formulário enviado com sucesso!');
+		} catch (error) {
+			if (error instanceof Error) {
+				console.error('Erro ao enviar formulário:', error.message);
+				erroCadastro = 'Erro ao efetuar o cadastro.';
+				sucessoCadastro = null;
+			} else {
+				console.error('Erro desconhecido ao enviar formulário:', error);
+				erroCadastro = 'Erro desconhecido ao efetuar o cadastro.';
+				sucessoCadastro = null;
+			}
+		}
+	};
+
+	/**
+	 * @type {string | null}
+	 */
+	let sucessoCadastro = null;
+	/**
+	 * @type {string | null}
+	 */
+	let erroCadastro = null;
 </script>
 
-<h1>Cadastro de Novos Clientes</h1>
+<h1 class="title mt-5">Cadastro de Novos Contratos</h1>
 
 {#if mostrarPergunta && etapaFormulario === 1}
-	<form on:submit|preventDefault={handleSubmit}>
+	<form class="formClienteNovo mt-4" on:submit|preventDefault={handleSubmit}>
 		<label>
 			Novo Cliente?
-			<select bind:value={modelo.cliente_novo}>
+			<select bind:value={modelo.cliente_novo} required>
 				<option value={true}>Sim</option>
 				<option value={false}>Não</option>
 			</select>
-		</label>
+		</label><br /><br />
 		<button type="submit">Prosseguir</button>
 	</form>
 {/if}
 
 {#if !mostrarPergunta && modelo.cliente_novo === true && etapaFormulario === 2}
-	<!-- Adicione os campos adicionais para Novo Cliente aqui -->
-	<form on:submit|preventDefault={handleSubmit}>
+	<form class="formClienteNovoSim" on:submit|preventDefault={handleSubmit}>
 		<label>
-			CNPJ do novo cliente:
-			<input bind:value={modelo.cnpj_cliente} type="text" />
-		</label>
+			CNPJ do novo cliente:<br />
+			<input bind:value={modelo.cnpj_cliente} type="text" required />
+			<!-- pattern="\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}" -->
+		</label><br />
 		<label>
-			Nome Fantasia:
+			Nome Fantasia:<br />
 			<input bind:value={modelo.nome_fantasia} type="text" />
-		</label>
+		</label><br />
 		<label>
-			Nome para contato:
+			Nome para contato:<br />
 			<input bind:value={modelo.nome_contato} type="text" />
-		</label>
+		</label><br />
 		<label>
-			E-mail Financeiro para cobrança:
+			E-mail Financeiro para cobrança:<br />
 			<input bind:value={modelo.email_contato} type="text" />
-		</label>
+		</label><br /><br />
 		<button type="submit">Prosseguir</button>
-		<button on:click={retornarPergunta}>Retornar</button>
+		<button on:click={retornarPergunta}>Reiniciar</button>
 	</form>
 {/if}
 
 {#if !mostrarPergunta && modelo.cliente_novo === false && etapaFormulario === 2}
-	<!-- Adicione os campos adicionais para Não Novo Cliente aqui -->
-	<form on:submit|preventDefault={handleSubmit}>
+	<form class="formClienteNovoNao" on:submit|preventDefault={handleSubmit}>
 		<label>
-			CNPJ do cliente:
-			<input bind:value={modelo.cnpj_cliente} type="text" />
-		</label>
+			CNPJ do cliente:<br />
+			<input bind:value={modelo.cnpj_cliente} type="text" required />
+		</label><br />
 		<label>
-			Razão social do cliente:
+			Razão social do cliente:<br />
 			<input bind:value={modelo.razao_social} type="text" />
-		</label>
+		</label><br /><br />
 		<button type="submit">Prosseguir</button>
 		<button on:click={retornarPergunta}>Retornar</button>
 	</form>
 {/if}
 
 {#if !mostrarPergunta && etapaFormulario === 3}
-	<!-- Adicione os campos adicionais para a terceira etapa do formulário aqui -->
-	<form on:submit|preventDefault={handleSubmit}>
+	<form on:submit|preventDefault={handleSubmitAndCheckServicos}>
 		<div class="form-group row">
-			<div class="col-sm-2">Serviços Prestados</div>
-			<div class="col-sm-10">
-				<div class="form-check">
-					<input bind:value={modelo.servicos_prestados}
-						class="form-check-input"
-						type="checkbox"
-						name="examplecheckboxs"
-						id=""
-						checked
-					/> Desenvolvimento de site
-					<label class="form-check-label" for="examplecheckboxs1"> Desenvolvimento de site </label>
-				</div>
-				<div class="form-check">
-					<input bind:value={modelo.servicos_prestados} class="form-check-input" type="checkbox" name="examplecheckboxs" id="" />
-					<label class="form-check-label" for="examplecheckboxs2"> Hotsite / Pré-Hotsite </label>
-				</div>
-				<div class="form-check">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						name="examplecheckboxs"
-						id=""
-						bind:value={modelo.servicos_prestados}
-					/>
-					<label class="form-check-label" for="examplecheckboxs3"> Manutenção de site </label>
-				</div>
-				<div class="form-check">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						name="examplecheckboxs"
-						id=""
-						bind:value={modelo.servicos_prestados}
-					/>
-					<label class="form-check-label" for="examplecheckboxs3"> Artes Avulsas </label>
-				</div>
-				<div class="form-check">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						name="examplecheckboxs"
-						id=""
-						bind:value={modelo.servicos_prestados}
-					/>
-					<label class="form-check-label" for="examplecheckboxs3"> Desenvolvimento da Marca </label>
-				</div>
-				<div class="form-check">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						name="examplecheckboxs"
-						id=""
-						bind:value={modelo.servicos_prestados}
-					/>
-					<label class="form-check-label" for="examplecheckboxs3"> Apresentação Digital </label>
-				</div>
-				<div class="form-check">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						name="examplecheckboxs"
-						id=""
-						bind:value={modelo.servicos_prestados}
-					/>
-					<label class="form-check-label" for="examplecheckboxs3">
-						Marketing Digital/Gerenciamento de Mídia
-					</label>
-				</div>
-				<div class="form-check">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						name="examplecheckboxs"
-						id=""
-						bind:value={modelo.servicos_prestados}
-					/>
-					<label class="form-check-label" for="examplecheckboxs3"> Gerenciamento de Mídia </label>
-				</div>
-				<div class="form-check">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						name="examplecheckboxs"
-						id=""
-						bind:value={modelo.servicos_prestados}
-					/>
-					<label class="form-check-label" for="examplecheckboxs3"> Performance </label>
-				</div>
-				<div class="form-check">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						name="examplecheckboxs"
-						id=""
-						bind:value={modelo.servicos_prestados}
-					/>
-					<label class="form-check-label" for="examplecheckboxs3"> Planejamento </label>
-				</div>
-				<div class="form-check">
-					<input
-						class="form-check-input"
-						type="checkbox"
-						name="examplecheckboxs"
-						id=""
-						bind:value={modelo.servicos_prestados}
-					/>
-					<label class="form-check-label" for="examplecheckboxs3"> Social Media </label>
+			<div class="col-sm-12" id="servicosCheck">
+				<h3>Serviços Prestados</h3>
+				<div class="row" id="checkRow">
+					<div class="form-check">
+						<input type="checkbox" id="desenvolvimentoSite" bind:checked={isSiteChecked} />
+						<label for="desenvolvimentoSite">Desenvolvimento de site</label>
+					</div>
+
+					<div class="form-check">
+						<input type="checkbox" id="hotsite" bind:checked={isHotsiteChecked} />
+						<label for="hotsite">Hotsite</label>
+					</div>
+
+					<div class="form-check">
+						<input type="checkbox" id="manutencao" bind:checked={isManutencaoChecked} />
+						<label for="manutencao">Manutenção de Sites</label>
+					</div>
+
+					<div class="form-check">
+						<input type="checkbox" id="artesAvulsas" bind:checked={isArtesChecked} />
+						<label for="artesAvulsas">Artes Avulsas</label>
+					</div>
+
+					<div class="form-check">
+						<input type="checkbox" id="devMarca" bind:checked={isDevMarcaChecked} />
+						<label for="devMarca">Desenvolvimento de Marca</label>
+					</div>
+
+					<div class="form-check">
+						<input
+							type="checkbox"
+							id="apresentacaoDigital"
+							bind:checked={isApresentacaoDigitalChecked}
+						/>
+						<label for="apresentacaoDigital">Apresentação Digital</label>
+					</div>
+
+					<div class="form-check">
+						<input type="checkbox" id="marketingDigital" bind:checked={isMarketingDigitalChecked} />
+						<label for="marketingDigital">Marketing Digital</label>
+					</div>
+					<div class="form-check">
+						<input
+							type="checkbox"
+							id="gerenciamentoMidia"
+							bind:checked={isGerenciamentoMidiaChecked}
+						/>
+						<label for="gerenciamentoMidia">Gerenciamento de Midia</label>
+					</div>
+					<div class="form-check">
+						<input type="checkbox" id="performance" bind:checked={isPerformanceChecked} />
+						<label for="performance">Performance</label>
+					</div>
+					<div class="form-check">
+						<input type="checkbox" id="planejamento" bind:checked={isPlanejamentoChecked} />
+						<label for="planejamento">Planejamento</label>
+					</div>
+					<div class="form-check">
+						<input type="checkbox" id="socialMedia" bind:checked={isSocialMediaChecked} />
+						<label for="socialMedia">Social Media</label>
+					</div>
 				</div>
 			</div>
-
-			<fieldset class="form-group">
-				<div class="row">
-					<label>
-						Haverá emissão de Nota Fiscal?
-						<select bind:value={modelo.emissao_de_nota}>
-							<option value="sim">Sim</option>
-							<option value="nao">Não</option>
-						</select>
-					</label>
-				</div>
-			</fieldset>
-			<fieldset class="form-group">
-				<div class="row">
-					<label>
-						Cliente terá retenção de ISS na emissão da Nota Fiscal
-						<select bind:value={modelo.retencao_iss_emissao_nota_fiscal}>
-							<option value="sim">Sim</option>
-							<option value="nao">Não</option>
-						</select>
-					</label>
-				</div>
-			</fieldset>
-			<fieldset class="form-group">
-				<div class="row">
-					<label>
-						Forma de recebimento
-						<select bind:value={modelo.forma_recebimento}>
-							<option value="PIX">PIX</option>
-							<option value="Boleto">Boleto</option>
-							<option value="Transferencia">Transferência</option>
-						</select>
-					</label>
-				</div>
-			</fieldset>
-			<label>
-				Tipo
-				<select bind:value={modelo.tipo}>
-					<option value="avulso">Avulso</option>
-					<option value="recorrente">Recorrente</option>
-				</select>
-			</label>
+			<div class="row" id="optionsRow">
+				<fieldset class="form-group">
+					<div class="row">
+						<label>
+							Haverá emissão de Nota Fiscal?
+							<select bind:value={modelo.emissao_de_nota} required>
+								<option value="sim">Sim</option>
+								<option value="nao">Não</option>
+							</select>
+						</label>
+					</div>
+				</fieldset>
+				<fieldset class="form-group">
+					<div class="row">
+						<label>
+							Cliente terá retenção de ISS na emissão da Nota Fiscal
+							<select bind:value={modelo.retencao_iss_emissao_nota_fiscal} required>
+								<option value="sim">Sim</option>
+								<option value="nao">Não</option>
+							</select>
+						</label>
+					</div>
+				</fieldset>
+				<fieldset class="form-group">
+					<div class="row">
+						<label>
+							Forma de recebimento
+							<select bind:value={modelo.forma_recebimento} required>
+								<option value="PIX">PIX</option>
+								<option value="Boleto">Boleto</option>
+								<option value="Transferencia">Transferência</option>
+							</select>
+						</label>
+					</div>
+				</fieldset>
+				<label>
+					Tipo
+					<select bind:value={modelo.tipo} required>
+						<option value="avulso">Avulso</option>
+						<option value="recorrente">Recorrente</option>
+					</select>
+				</label>
+			</div>
 		</div>
-		<!-- Adicione outros campos conforme necessário -->
 		<button type="submit">Prosseguir</button>
 		<button on:click={retornarPergunta}>Retornar</button>
 	</form>
@@ -398,68 +378,14 @@
 			Término de Vigência
 			<input bind:value={modelo.recorrente.termino_vigencia} type="date" />
 		</label>
-		<fieldset class="form-group">
-			<div class="row">
-				<legend class="col-form-label col-sm-2 pt-0">Periodicidade</legend>
-				<div class="col-sm-10">
-					<div class="form-check">
-						<input
-							class="form-check-input"
-							type="radio"
-							name="peridiocidade"
-							id=""
-							bind:value={modelo.recorrente.periodicidade}
-							checked
-						/>
-						<label class="form-check-label" for="gridRadios1">Mensal</label>
-					</div>
-					<div class="form-check">
-						<input
-							class="form-check-input"
-							type="radio"
-							name="peridiocidade"
-							id=""
-							bind:value={modelo.recorrente.periodicidade}
-							checked
-						/>
-						<label class="form-check-label" for="gridRadios1">Bimestral</label>
-					</div>
-					<div class="form-check">
-						<input
-							class="form-check-input"
-							type="radio"
-							name="peridiocidade"
-							id=""
-							bind:value={modelo.recorrente.periodicidade}
-							checked
-						/>
-						<label class="form-check-label" for="gridRadios1">Trimestral</label>
-					</div>
-					<div class="form-check">
-						<input
-							class="form-check-input"
-							type="radio"
-							name="peridiocidade"
-							id=""
-							bind:value={modelo.recorrente.periodicidade}
-							checked
-						/>
-						<label class="form-check-label" for="gridRadios1">Semestral</label>
-					</div>
-					<div class="form-check">
-						<input
-							class="form-check-input"
-							type="radio"
-							name="peridiocidade"
-							id=""
-							bind:value={modelo.recorrente.periodicidade}
-							checked
-						/>
-						<label class="form-check-label" for="gridRadios1">Anual</label>
-					</div>
-				</div>
-			</div>
-		</fieldset>
+		<label for="periodicidade">Periodicidade</label>
+		<select bind:value={modelo.recorrente.periodicidade}>
+			<option value="Mensal">Mensal</option>
+			<option value="Bimestral">Bimestral</option>
+			<option value="Trimestral">Trimestral</option>
+			<option value="Semestral">Semestral</option>
+			<option value="Anual">Anual</option>
+		</select>
 		<label>
 			Valor por Período:
 			<input bind:value={modelo.recorrente.valor_do_periodo} type="text" />
@@ -474,9 +400,55 @@
 	</form>
 {/if}
 {#if !mostrarPergunta && etapaFormulario === 5}
-	<button on:click={() => console.log('Dados do Formulário:', modelo)}>Enviar Formulário</button>
+	<button on:click={enviarFormulario}>Enviar Formulário</button>
+	{#if sucessoCadastro}
+		<p style="color: green;">{sucessoCadastro}</p>
+	{/if}
+
+	{#if erroCadastro}
+		<p style="color: red;">{erroCadastro}</p>
+	{/if}
 {/if}
 
 <style>
-	/* Adicione estilos conforme necessário */
+	.title {
+		text-align: center;
+	}
+
+	.formClienteNovo {
+		text-align: center;
+		align-self: center;
+	}
+
+	.formClienteNovoSim {
+		text-align: center;
+		align-self: center;
+	}
+
+	.formClienteNovoNao {
+		text-align: center;
+		align-self: center;
+	}
+
+	.form-check {
+		padding-left: unset;
+		width: 20%;
+		display: flex;
+	}
+
+	#servicosCheck {
+		margin-bottom: 2rem;
+	}
+
+	#servicosCheck>h3 {
+		margin-left: 1rem;
+	}
+
+	#checkRow {
+		margin: 1rem;
+	}
+
+	#optionsRow {
+		margin: 1rem;
+	}
 </style>
