@@ -196,7 +196,6 @@
 		<label>
 			CNPJ do novo cliente:<br />
 			<input bind:value={modelo.cnpj_cliente} type="text" required />
-			<!-- pattern="\d{2}\.\d{3}\.\d{3}\/\d{4}-\d{2}" -->
 		</label><br />
 		<label>
 			Nome Fantasia:<br />
@@ -440,7 +439,7 @@
 		margin-bottom: 2rem;
 	}
 
-	#servicosCheck>h3 {
+	#servicosCheck > h3 {
 		margin-left: 1rem;
 	}
 
