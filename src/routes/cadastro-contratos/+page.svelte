@@ -226,12 +226,12 @@
 			<input bind:value={modelo.razao_social} type="text" />
 		</label><br /><br />
 		<button type="submit">Prosseguir</button>
-		<button on:click={retornarPergunta}>Retornar</button>
+		<button on:click={retornarPergunta}>Reiniciar</button>
 	</form>
 {/if}
 
 {#if !mostrarPergunta && etapaFormulario === 3}
-	<form on:submit|preventDefault={handleSubmitAndCheckServicos}>
+	<form class="formCheckMain" on:submit|preventDefault={handleSubmitAndCheckServicos}>
 		<div class="form-group row">
 			<div class="col-sm-12" id="servicosCheck">
 				<h3>Serviços Prestados</h3>
@@ -300,7 +300,7 @@
 				<fieldset class="form-group">
 					<div class="row">
 						<label>
-							Haverá emissão de Nota Fiscal?
+							Haverá emissão de Nota Fiscal?<br />
 							<select bind:value={modelo.emissao_de_nota} required>
 								<option value="sim">Sim</option>
 								<option value="nao">Não</option>
@@ -311,7 +311,7 @@
 				<fieldset class="form-group">
 					<div class="row">
 						<label>
-							Cliente terá retenção de ISS na emissão da Nota Fiscal
+							Cliente terá retenção de ISS na emissão da Nota Fiscal?<br />
 							<select bind:value={modelo.retencao_iss_emissao_nota_fiscal} required>
 								<option value="sim">Sim</option>
 								<option value="nao">Não</option>
@@ -322,7 +322,7 @@
 				<fieldset class="form-group">
 					<div class="row">
 						<label>
-							Forma de recebimento
+							Forma de recebimento<br />
 							<select bind:value={modelo.forma_recebimento} required>
 								<option value="PIX">PIX</option>
 								<option value="Boleto">Boleto</option>
@@ -331,8 +331,8 @@
 						</label>
 					</div>
 				</fieldset>
-				<label>
-					Tipo
+				<label id="tipoChoice">
+					Tipo<br />
 					<select bind:value={modelo.tipo} required>
 						<option value="avulso">Avulso</option>
 						<option value="recorrente">Recorrente</option>
@@ -341,63 +341,69 @@
 			</div>
 		</div>
 		<button type="submit">Prosseguir</button>
-		<button on:click={retornarPergunta}>Retornar</button>
+		<button on:click={retornarPergunta}>Reiniciar</button>
 	</form>
 {/if}
 
 {#if !mostrarPergunta && modelo.tipo === 'avulso' && etapaFormulario === 4}
-	<form on:submit|preventDefault={handleSubmit}>
-		<h1>Serviço Avulso</h1>
-		<label>
-			Valor Total separado por Serviço:
-			<input bind:value={modelo.avulso.valor_total_servicos} type="text" />
-		</label>
-		<label>
-			Número de Parcelas:
-			<input bind:value={modelo.avulso.numero_parcelas} type="text" />
-		</label>
-		<label>
-			Data(s) de Vencimento:
-			<input bind:value={modelo.avulso.data_vencimento} type="text" />
-		</label>
-		<label>
-			Observações Adicionais na Nota Fiscal, se houver:
-			<input bind:value={modelo.avulso.observacoes_adicionais_nota_fiscal} type="text" />
-		</label>
-		<button type="submit">Prosseguir</button>
-		<button on:click={retornarPergunta}>Retornar</button>
-	</form>
+	<div class="row">
+		<form class="formAvulso" on:submit|preventDefault={handleSubmit}>
+			<h3>Serviço Avulso</h3>
+			<label>
+				Valor Total separado por Serviço:
+				<input bind:value={modelo.avulso.valor_total_servicos} type="text" />
+			</label>
+			<label>
+				Número de Parcelas:
+				<input bind:value={modelo.avulso.numero_parcelas} type="text" />
+			</label>
+			<label>
+				Data(s) de Vencimento:
+				<input bind:value={modelo.avulso.data_vencimento} type="text" />
+			</label>
+			<label>
+				Observações Adicionais na Nota Fiscal, se houver:
+				<input bind:value={modelo.avulso.observacoes_adicionais_nota_fiscal} type="text" />
+			</label><br><br>
+			<button type="submit">Prosseguir</button>
+			<button on:click={retornarPergunta}>Reiniciar</button>
+		</form>
+	</div>
 {/if}
 
 {#if !mostrarPergunta && modelo.tipo === 'recorrente' && etapaFormulario === 4}
-	<form on:submit|preventDefault={handleSubmit}>
-		<h1>Serviço Recorrente</h1>
-		<label for="data">Início da vigência:</label>
-		<input bind:value={modelo.recorrente.inicio_vigencia} type="date" />
-		<label for="data">
-			Término de Vigência
-			<input bind:value={modelo.recorrente.termino_vigencia} type="date" />
+	<div class="row">
+		<form class="formRecorrente" on:submit|preventDefault={handleSubmit}>
+			<h3>Serviço Recorrente</h3>
+			<label for="data">Início da vigência:
+			<input bind:value={modelo.recorrente.inicio_vigencia} type="date" />
+			</label>
+			<label for="data">
+				Término de Vigência
+				<input bind:value={modelo.recorrente.termino_vigencia} type="date" />
+			</label>
+			<label for="periodicidade">Periodicidade
+			<select bind:value={modelo.recorrente.periodicidade}>
+				<option value="Mensal">Mensal</option>
+				<option value="Bimestral">Bimestral</option>
+				<option value="Trimestral">Trimestral</option>
+				<option value="Semestral">Semestral</option>
+				<option value="Anual">Anual</option>
+			</select>
 		</label>
-		<label for="periodicidade">Periodicidade</label>
-		<select bind:value={modelo.recorrente.periodicidade}>
-			<option value="Mensal">Mensal</option>
-			<option value="Bimestral">Bimestral</option>
-			<option value="Trimestral">Trimestral</option>
-			<option value="Semestral">Semestral</option>
-			<option value="Anual">Anual</option>
-		</select>
-		<label>
-			Valor por Período:
-			<input bind:value={modelo.recorrente.valor_do_periodo} type="text" />
-		</label>
-		<label>
-			Observações Adicionais:
-			<input bind:value={modelo.recorrente.observacoes_adicionais} type="text" />
-		</label>
+			<label>
+				Valor por Período:
+				<input bind:value={modelo.recorrente.valor_do_periodo} type="text" />
+			</label>
+			<label>
+				Observações Adicionais:
+				<input bind:value={modelo.recorrente.observacoes_adicionais} type="text" />
+			</label><br><br>
 
-		<button type="submit">Prosseguir</button>
-		<button on:click={retornarPergunta}>Retornar</button>
-	</form>
+			<button type="submit">Prosseguir</button>
+			<button on:click={retornarPergunta}>Reiniciar</button>
+		</form>
+	</div>
 {/if}
 {#if !mostrarPergunta && etapaFormulario === 5}
 	<button on:click={enviarFormulario}>Enviar Formulário</button>
@@ -440,7 +446,7 @@
 		margin-bottom: 2rem;
 	}
 
-	#servicosCheck>h3 {
+	#servicosCheck > h3 {
 		margin-left: 1rem;
 	}
 
@@ -448,7 +454,66 @@
 		margin: 1rem;
 	}
 
-	#optionsRow {
-		margin: 1rem;
+	fieldset {
+		margin-left: 1rem;
 	}
+
+	#tipoChoice {
+		margin-left: 1rem;
+		margin-bottom: 2rem;
+	}
+
+	.formCheckMain > button {
+		margin-left: 1rem;
+	}
+
+	button {
+		background-color: white;
+		border: 1px solid #d3d3d3;
+	}
+
+	button:hover {
+		font-weight: bolder;
+		background-color: black;
+		color: white;
+	}
+
+	input {
+		background-color: transparent;
+		border: 1px solid #9c9c9c;
+	}
+
+	select {
+		background-color: transparent;
+	}
+
+	.formAvulso>h3 {
+		margin-left: 1rem;
+	}
+
+	.formAvulso > label {
+		width: 35%;
+		margin-left: 1rem;
+	}
+
+	.formAvulso>button {
+		margin-left: 1rem;
+	}
+
+	.formRecorrente>h3 {
+		margin-left: 1rem;
+	}
+
+	.formRecorrente > label {
+		width: 30%;
+		margin-left: 1rem;
+		margin-bottom: 0.5rem;
+	}
+
+	.formRecorrente>button {
+		margin-left: 1rem;
+	}
+
+
+
 </style>
