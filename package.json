@@ -33,6 +33,7 @@
 		"cors": "^2.8.5",
 		"eslint": "^8.49.0",
 		"firebase": "^10.7.0",
+		"google-auth-library": "^9.4.1",
 		"jquery": "^3.7.1",
 		"jquery-ui": "^1.13.2",
 		"svelte-google-login": "^0.0.3"
