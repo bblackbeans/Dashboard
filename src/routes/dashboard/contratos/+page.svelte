@@ -25,19 +25,20 @@
     celulaID.textContent = proximoID++;
 
     const celulaNome = novaLinha.insertCell();
-    celulaNome.textContent = usuario.cnpj_cpf;
+    celulaNome.textContent = usuario.cnpj_cpf || 'Campo não preenchido';
 
     const celulaEmail = novaLinha.insertCell();
-    celulaEmail.textContent = usuario.email_contato;
+    celulaEmail.textContent = usuario.email_contato || 'Campo não preenchido';
 
     const celuladdd = novaLinha.insertCell();
-    celuladdd.textContent = usuario.tipo;
+    celuladdd.textContent = usuario.tipo || 'Campo não preenchido';
 
     const celulaTelefone = novaLinha.insertCell();
-    celulaTelefone.textContent = usuario.data_vencimento;
+    celulaTelefone.textContent = usuario.data_vencimento || 'Campo não preenchido';
 
     const celulaStatus = novaLinha.insertCell();
-    celulaStatus.textContent = usuario.termino_vigencia;
+    celulaStatus.textContent = usuario.termino_vigencia || 'Campo não preenchido';
+    celulaStatus.style.color = 'red';
 
     const celulaBotao = novaLinha.insertCell();
     const botao = document.createElement('button');
@@ -124,7 +125,7 @@ try {
       <th>Email</th>
       <th>Tipo</th>
       <th>Data de vencimento</th>
-      <th>Término vingência</th>
+      <th>Término vigência</th>
     </tr>
   </thead>
   <tbody>
@@ -165,5 +166,9 @@ try {
   tr,th,tbody {
       border: 1px solid rgba(107, 122, 144, 0.1) !important;
   }
+
+  .texto-vermelho {
+    color: red;
+}
 
 </style>
