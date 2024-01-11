@@ -35,6 +35,7 @@
 		"firebase": "^10.7.0",
 		"jquery": "^3.7.1",
 		"jquery-ui": "^1.13.2",
+		"mysql2": "^3.6.5",
 		"svelte-google-login": "^0.0.3"
 	}
 }

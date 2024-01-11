@@ -4,7 +4,7 @@
 
 	let showSubMenu1 = false;
 	let showSubMenu2 = false;
-	let titleSubMenu1 = 'Cadastro de Clientes';
+	let titleSubMenu1 = 'Clientes';
 	let titleSubMenu2 = 'Contratos';
 
 	function toggleSubMenu1() {
@@ -30,6 +30,11 @@
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 		crossorigin="anonymous"
 	/>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link href="https://fonts.googleapis.com/css2?family=Amiri&display=swap" rel="stylesheet">
 
 	<script
 		defer
@@ -37,6 +42,9 @@
 		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 		crossorigin="anonymous"
 	></script>
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </svelte:head>
 
 <main>
@@ -69,11 +77,8 @@
 							<div class="subMenu">
 								<h4 class="subTitle">{titleSubMenu1}</h4>
 								<ul>
-									<li>
-										<a class="menuLinks" href="/dashboard/cadastro-clientes">Cadastro de Clientes</a
-										>
-									</li>
-									<!-- <li><a class="menuLinks" href="#">Status de Clientes</a></li> -->
+									<li><a class="menuLinks" href="/dashboard/clientes">Clientes</a></li> 
+									<li><a class="menuLinks" href="/dashboard/cadastro-clientes">Cadastro de Clientes</a></li>
 								</ul>
 							</div>
 						{/if}
@@ -82,12 +87,8 @@
 							<div class="subMenu">
 								<h4 class="subTitle">{titleSubMenu2}</h4>
 								<ul>
-									<li>
-										<a class="menuLinks" href="/dashboard/cadastro-contratos"
-											>Cadastro de Contratos</a
-										>
-									</li>
-									<!-- <li><a class="menuLinks" href="/">Contratos 2</a></li> -->
+									<li><a class="menuLinks" href="/dashboard/contratos">Contratos</a></li>
+									<li><a class="menuLinks" href="/dashboard/cadastro-contratos">Cadastro de Contratos</a></li>
 								</ul>
 							</div>
 						{/if}
@@ -102,7 +103,9 @@
 </main>
 
 <style type="scss">
-	#mainMenu {
+
+
+#mainMenu {
 		box-shadow: 0px 8px 17px rgba(0, 0, 0, 0.2);
 		z-index: 9990;
 		padding-right: unset;
@@ -110,11 +113,12 @@
 	}
 
 	#slot {
-		background-color: #f0f3f7;
+		background-color:#f0f3f7;
 	}
 
 	main {
 		min-height: 100vh;
+		font-family: amiri, serif;
 	}
 
 	li {
@@ -138,7 +142,7 @@
 		width: 100%;
 		padding: 10px 10px 10px 10px;
 		background-color: #f0f3f7;
-		border: 1px solid rgba(107, 122, 144, 0.1) !important;
+		border: 1px solid rgba(107,122,144,0.1) !important;
 	}
 
 	.subMenu {
@@ -146,22 +150,24 @@
 	}
 
 	.subTitle {
-		font-size: 1.2rem;
 		height: 71.94px;
 		display: flex;
 		align-items: center;
 		background-color: #131312;
 		font-weight: bolder;
-		color: #ff9901;
+		color: #FF9901;
 		padding-left: 15px;
 	}
 
 	.menuLinks {
 		padding-left: 15px;
 		color: #131312;
+
 	}
 
 	.menuLinks:hover {
-		color: #ff9901;
+		color: #FF9901;
 	}
+
+
 </style>

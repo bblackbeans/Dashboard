@@ -1,74 +1,74 @@
 <script>
 	let formData = {
 		basicInfo: {
-			razao_social: 'Empresa Exemplo Ltda',
-			nome_fantasia: 'Exemplo',
-			site: 'https://exemplo.com',
-			cnpj_cpf: '00.000.000/0001-00',
-			insc_estadual: '123456789',
-			email: 'contato@exemplo.com'
+			razao_social: '',
+			nome_fantasia: '',
+			site: '',
+			cnpj_cpf: '',
+			insc_estadual: '',
+			email: ''
 		},
 		contactInfo: {
-			endereco_atendimento: 'Rua Exemplo, 123',
-			bairro: 'Centro',
-			cep: '00000-000',
-			cidade: 'Cidade Exemplo',
-			estado: 'Estado',
-			ddd: '11',
-			fax: '1123456789',
-			telefone: '1123456789'
+			endereco_atendimento: '',
+			bairro: '',
+			cep: '',
+			cidade: '',
+			estado: '',
+			ddd: '',
+			fax: '',
+			telefone: ''
 		},
 		billingInfo: {
-			endereco_faturamento: 'Rua Faturamento, 321',
-			bairro_faturamento: 'Bairro Faturamento',
-			cep_faturamento: '11111-111',
-			cidade_faturamento: 'Cidade Faturamento',
-			estado_faturamento: 'Estado Faturamento',
-			ddd_faturamento: '22',
-			fax_faturamento: '2234567890',
-			telefone_faturamento: '2234567890',
-			email_boleto_notas: 'faturamento@exemplo.com'
+			endereco_faturamento: '',
+			bairro_faturamento: '',
+			cep_faturamento: '',
+			cidade_faturamento: '',
+			estado_faturamento: '',
+			ddd_faturamento: '',
+			fax_faturamento: '',
+			telefone_faturamento: '',
+			email_boleto_notas: ''
 		},
 		finacialInfo: {
-			responsavel_financeiro: 'Responsável Financeiro',
-			ddd_financeiro: '33',
-			telefone_financeiro: '3323456789',
-			email_financeiro: 'financeiro@exemplo.com'
+			responsavel_financeiro: '',
+			ddd_financeiro: '',
+			telefone_financeiro: '',
+			email_financeiro: ''
 		},
 		legalInfo: {
-			nome_representante: 'Representante Legal',
-			estado_civil_representante: 'Casado',
-			profissao_representante: 'Advogado',
-			rg_representante: 'MG-12.345.678',
-			cpf_representante: '123.456.789-00',
-			email_representante: 'representante@exemplo.com',
-			telefone_representante: '4434567890',
-			nascimento_representante: '1980-01-01'
+			nome_representante: '',
+			estado_civil_representante: '',
+			profissao_representante: '',
+			rg_representante: '',
+			cpf_representante: '',
+			email_representante: '',
+			telefone_representante: '',
+			nascimento_representante: ''
 		},
 		AdditionalContactsSchema: {
-			nome_segundo_contato: 'Segundo Contato',
-			estado_civil_segundo_contato: 'Solteiro',
-			profissao_segundo_contato: 'Engenheiro',
-			rg_segundo_contato: 'SP-98.765.432',
-			cpf_segundo_contato: '987.654.321-00',
-			email_segundo_contato: 'segundocontato@exemplo.com',
-			telefone_segundo_contato: '5523456789',
-			nascimento_segundo_contato: '1990-05-15',
-			nome_terceiro_contato: 'Terceiro Contato',
-			estado_civil_terceiro_contato: 'Divorciado',
-			profissao_terceiro_contato: 'Médico',
-			rg_terceiro_contato: 'RJ-11.222.333',
-			cpf_terceiro_contato: '111.222.333-44',
-			email_terceiro_contato: 'terceirocontato@exemplo.com',
-			telefone_terceiro_contato: '6623456789',
-			nascimento_terceiro_contato: '1985-08-20'
+			nome_segundo_contato: '',
+			estado_civil_segundo_contato: '',
+			profissao_segundo_contato: '',
+			rg_segundo_contato: '',
+			cpf_segundo_contato: '',
+			email_segundo_contato: '',
+			telefone_segundo_contato: '',
+			nascimento_segundo_contato: '',
+			nome_terceiro_contato: '',
+			estado_civil_terceiro_contato: '',
+			profissao_terceiro_contato: '',
+			rg_terceiro_contato: '',
+			cpf_terceiro_contato: '',
+			email_terceiro_contato: '',
+			telefone_terceiro_contato: '',
+			nascimento_terceiro_contato: ''
 		}
 	};
 
 	async function submitForm() {
 		try {
 			const response = await fetch(
-				'https://4350-2804-14c-5be3-804a-eda7-60e4-c21d-4a2b.ngrok-free.app/clients/registration',
+				'https://client-management-service-edejqdvmyq-uc.a.run.app/clients/registration',
 				{
 					method: 'POST',
 					headers: {
