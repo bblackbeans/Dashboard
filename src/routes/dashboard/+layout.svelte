@@ -1,6 +1,7 @@
 <script>
 	import '../../global.scss';
 	import Header from '$lib/components/header.svelte';
+	import { page } from '$app/stores';
 
 	let showSubMenu1 = false;
 	let showSubMenu2 = false;
@@ -54,8 +55,13 @@
 			<div id="mainMenu" class="col-md-3">
 				<div class="d-flex flex-column">
 					<div class="profile">
-						<img src="" alt="Foto do Usuario" />
-						<h3>Nome do Usuário</h3>
+						<img
+							class="rounded-circle mb-2"
+							src={$page.data.session?.user?.image}
+							alt="Foto do Usuario"
+							referrerpolicy="no-referrer"
+						/>
+						<h4>{$page.data.session?.user?.name}</h4>
 					</div>
 					<div class="d-flex flex-row">
 						<div>
