@@ -1,7 +1,7 @@
 <script>
 	let modelo = {
 		cliente_novo: true,
-		cnpj_cliente: '',
+		cnpj_cpf: '',
 		razao_social: '',
 		nome_fantasia: '',
 		nome_contato: '',
@@ -194,8 +194,8 @@
 {#if !mostrarPergunta && modelo.cliente_novo === true && etapaFormulario === 2}
 	<form class="formClienteNovoSim" on:submit|preventDefault={handleSubmit}>
 		<label>
-			CNPJ do novo cliente:<br />
-			<input bind:value={modelo.cnpj_cliente} type="text" required />
+			CNPJ/CPF do novo cliente:<br />
+			<input bind:value={modelo.cnpj_cpf} type="text" required />
 		</label><br />
 		<label>
 			Nome Fantasia:<br />
@@ -217,8 +217,8 @@
 {#if !mostrarPergunta && modelo.cliente_novo === false && etapaFormulario === 2}
 	<form class="formClienteNovoNao" on:submit|preventDefault={handleSubmit}>
 		<label>
-			CNPJ do cliente:<br />
-			<input bind:value={modelo.cnpj_cliente} type="text" required />
+			CNPJ/CPF do cliente:<br />
+			<input bind:value={modelo.cnpj_cpf} type="text" required />
 		</label><br />
 		<label>
 			Razão social do cliente:<br />
@@ -416,7 +416,7 @@
 {/if}
 
 <style>
-	.title {
+		.title {
 		text-align: center;
 	}
 
@@ -491,7 +491,7 @@
 	}
 
 	.formAvulso > label {
-		width: 35%;
+		width: 33%;
 		margin-left: 1rem;
 	}
 
@@ -512,6 +512,8 @@
 	.formRecorrente>button {
 		margin-left: 1rem;
 	}
+
+
 
 
 
