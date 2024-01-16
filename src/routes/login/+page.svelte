@@ -24,7 +24,7 @@
 	import Google from '$lib/components/icon/Google.svelte';
 
 	const handleGoogleSignIn = () => {
-		signIn('google', { callbackUrl: '/painel' });
+		signIn('google', { callbackUrl: '/dashboard' });
 	};
 
 	const handleSignOut = () => {

@@ -1,13 +1,18 @@
-// import { SvelteKitAuth } from '@auth/sveltekit';
-// import GoogleProvider from '@auth/core/providers/google';
-// import { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, AUTH_SECRET } from '$env/static/private';
+import { SvelteKitAuth } from '@auth/sveltekit';
+import GoogleProvider from '@auth/core/providers/google';
+import 'dotenv/config';
 
-// export const handle = SvelteKitAuth({
-// 	trustHost: true,
-// 	secret: AUTH_SECRET,
-// 	providers: [GoogleProvider({ clientId: GOOGLE_CLIENT_ID, clientSecret: GOOGLE_CLIENT_SECRET })],
-// 	pages: {
-// 		signIn: '/login',
-// 		signOut: '/logout'
-// 	}
-// });
+export const handle = SvelteKitAuth({
+	trustHost: true,
+	secret: process.env.AUTH_SECRET,
+	providers: [
+		GoogleProvider({
+			clientId: process.env.GOOGLE_CLIENT_ID,
+			clientSecret: process.env.GOOGLE_CLIENT_SECRET
+		})
+	]
+	// pages: {
+	// 	signIn: '/login',
+	// 	signOut: '/logout'
+	// }
+});
