@@ -11,8 +11,4 @@ export const handle = SvelteKitAuth({
 			clientSecret: process.env.GOOGLE_CLIENT_SECRET
 		})
 	]
-	// pages: {
-	// 	signIn: '/login',
-	// 	signOut: '/logout'
-	// }
 });
