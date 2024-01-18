@@ -87,7 +87,7 @@
 							<div class="subMenu">
 								<h4 class="subTitle">{titleSubMenu2}</h4>
 								<ul>
-									<li><a class="menuLinks" href="/dashboard/contratos">Contratos</a></li>
+									<li><a class="menuLinks" href="/dashboard/contratos">Contratos para vencer</a></li>
 									<li><a class="menuLinks" href="/dashboard/cadastro-contratos">Cadastro de Contratos</a></li>
 								</ul>
 							</div>

@@ -167,8 +167,9 @@ try {
       border: 1px solid rgba(107, 122, 144, 0.1) !important;
   }
 
-  .texto-vermelho {
-    color: red;
-}
+  .modal-content {
+      width: 180%!important;
+    }
+
 
 </style>

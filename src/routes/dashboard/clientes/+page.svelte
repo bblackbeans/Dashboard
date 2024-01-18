@@ -67,7 +67,8 @@ async function abrirModal(botao) {
     if (modalBody) {
       // Aqui posso adicionar os dados do modal
       modalBody.innerHTML = `
-      <p><strong>Bairro:</strong> ${dadosCliente.bairro}</p>
+      <div class="col-md-6">
+        <p><strong>Bairro:</strong> ${dadosCliente.bairro}</p>
         <p><strong>Bairro Faturamento:</strong> ${dadosCliente.bairro_faturamento}</p>
         <p><strong>CEP:</strong> ${dadosCliente.cep}</p>
         <p><strong>CEP Faturamento:</strong> ${dadosCliente.cep_faturamento}</p>
@@ -92,6 +93,8 @@ async function abrirModal(botao) {
         <p><strong>Estado Civil Representante:</strong> ${dadosCliente.estado_civil_representante}</p>
         <p><strong>Estado Civil Segundo Contato:</strong> ${dadosCliente.estado_civil_segundo_contato}</p>
         <p><strong>Estado Civil Terceiro Contato:</strong> ${dadosCliente.estado_civil_terceiro_contato}</p>
+      </div>  
+      <div class="col-md-6">
         <p><strong>Estado Faturamento:</strong> ${dadosCliente.estado_faturamento}</p>
         <p><strong>Fax:</strong> ${dadosCliente.fax}</p>
         <p><strong>Fax Faturamento:</strong> ${dadosCliente.fax_faturamento}</p>
@@ -118,6 +121,7 @@ async function abrirModal(botao) {
         <p><strong>Telefone Representante:</strong> ${dadosCliente.telefone_representante}</p>
         <p><strong>Telefone Segundo Contato:</strong> ${dadosCliente.telefone_segundo_contato}</p>
         <p><strong>Telefone Terceiro Contato:</strong> ${dadosCliente.telefone_terceiro_contato}</p>
+      </div>
       `;
     } else {
       console.error("Elemento modalBody não encontrado.");
@@ -174,7 +178,7 @@ async function abrirModal(botao) {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body row">
         <!-- Conteúdo do modal -->
       </div>
       <div class="modal-footer">
@@ -196,6 +200,10 @@ async function abrirModal(botao) {
 
     tr,th,tbody {
         border: 1px solid rgba(107, 122, 144, 0.1) !important;
+    }
+
+    .modal-content {
+      width: 180%!important;
     }
 
   </style>
